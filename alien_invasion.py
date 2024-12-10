@@ -24,7 +24,8 @@ class AlienInvasion:
             self._update_screen()
 # flip()让最近绘制的屏幕可见。在这里，它在每次执行while循环时都绘制一个空屏幕，并擦去旧屏幕，使得只有新屏幕可见。
 # 我们移动游戏元素时，flip()将不断更新屏幕，以显示元素的新位置，并且在原来的位置隐藏元素，从而营造平滑移动的效果。
-            pygame.display.flip()
+            pygame.display.flip()  # display.flip() will update the contents of the entire display.
+                                   # display.update() allows to update a portion of the screen,
 
 # 辅助方法在类中执行任务，但并非是通过实例调用的。在Python中，辅助方法的名称以单个下划线打头。
 # These methods are only meant to be called from within the class, isn’t meant for public use
@@ -33,7 +34,7 @@ class AlienInvasion:
             # if event.type == pygame.quit()  you are actually executing the quit() function before pygame is initialized.
             # In the second you are comparing the event to the event named QUIT.
             # 当玩家单击游戏窗口的关闭按钮时，将检测到pygame.QUIT事件
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT:  #or event.type == pygame.K_q:
                 sys.exit()
 #每当用户按键时，都将在Pygame中注册一个事件。事件都是通过方法pygame.event.get()获取的，因此需要在方法_check_events()中指定要检查哪些类型的事件。
 #每次按键都被注册为一个KEYDOWN事件。
