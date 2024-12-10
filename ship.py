@@ -12,12 +12,11 @@ class Ship:
         self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
 
-# 在飞船的属性x中存储小数值
-        self.x = float(self.rect.x)
-
 # 对于每搜新飞船，都将其放在屏幕底部的中央
         self.rect.midbottom = self.screen_rect.midbottom
 
+# 在飞船的属性x中存储小数值
+        self.x = float(self.rect.x)
 
 # 移动标志
         self.moving_right = False
