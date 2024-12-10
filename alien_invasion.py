@@ -11,7 +11,7 @@ class AlienInvasion:
 # 创建一个显示窗口
 #       self.screen = pygame.display.set_mode((1200, 800)) 如果不用settings.py
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
-        pygame.display.set_caption("Alien Invasion By Kai")
+        pygame.display.set_caption("Alien Invasion Game for Gavin")
         self.ship = Ship(self)
 #       self.bg_color = (230,230,230)  如果不用settings.py
 # 这个游戏由方法run_game()控制。该方法包含一个不断运行的while循环，而这个循环包含一个事件循环以及管理屏幕更新的代码。
@@ -38,22 +38,28 @@ class AlienInvasion:
 #每当用户按键时，都将在Pygame中注册一个事件。事件都是通过方法pygame.event.get()获取的，因此需要在方法_check_events()中指定要检查哪些类型的事件。
 #每次按键都被注册为一个KEYDOWN事件。
             elif event.type ==pygame.KEYDOWN:
-                if event.key ==pygame.K_RIGHT:  #向右移动飞船
-#                  self.ship.rect.x +=1
-                   self.ship.moving_right = True
-                elif event.key == pygame.K_LEFT:  # 向zuo移动飞船
-                     self.ship.moving_left = True
-            elif event.type ==pygame.KEYUP:   # pygame.KEYUP事件，以便知道玩家何时松开右箭头键
-                if event.key == pygame.K_RIGHT:
-                   self.ship.moving_right = False
-                elif event.key == pygame.K_LEFT:
-                     self.ship.moving_left = False
+                 self._check_keydown_events(event)   #响应按键，重构了函数_check_keydown_events从此处分离
+            elif event.type ==pygame.KEYUP:          # pygame.KEYUP事件，以便知道玩家何时松开右箭头键
+                 self._check_keyup_events(event)     #松开按键，重构了函数_check_keyup_events从此处分离
+
+    def _check_keydown_events(self,event):
+        if event.key == pygame.K_RIGHT:  # 向右移动飞船
+            # self.ship.rect.x +=1
+            self.ship.moving_right = True
+        elif event.key == pygame.K_LEFT:  # 向zuo移动飞船
+            self.ship.moving_left = True
+
+
+    def _check_keyup_events(self, event):
+        if event.key == pygame.K_RIGHT:
+            self.ship.moving_right = False
+        elif event.key == pygame.K_LEFT:
+            self.ship.moving_left = False
 
     def _update_screen(self):
         # 每次循环时都重绘屏幕
         self.screen.fill(self.settings.bg_colour)
         self.ship.blitme()
-
 
 if __name__ =='__main__':  # 仅当直接运行该文件时，它们才会执行
     ai = AlienInvasion()
