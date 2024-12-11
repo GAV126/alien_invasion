@@ -7,13 +7,18 @@ from ship import Ship
 class AlienInvasion:
     def __init__(self):
         pygame.init()
-        self.settings = Settings()
+# 非常重要，调用另一个文件中的类
+        self.settings = Settings()  #创建一个Settings实例并将其赋给self.settings
 # 创建一个显示窗口
 #       self.screen = pygame.display.set_mode((1200, 800)) 如果不用settings.py
+# 使用Settings类里的属性screen_width,screen_height
         self.screen = pygame.display.set_mode((self.settings.screen_width,self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion Game for Gavin")
+
+# 导入Ship类，并在创建屏幕后创建一个Ship实例。调用Ship()时，必须提供一个参数：一个AlienInvasion实例。
+# 在这里，self指向的是当前AlienInvasion实例。这个参数让Ship能够访问游戏资源，如对象screen。我们将这个Ship实例赋给了self.ship。
         self.ship = Ship(self)
-#       self.bg_color = (230,230,230)  如果不用settings.py
+
 # 这个游戏由方法run_game()控制。该方法包含一个不断运行的while循环，而这个循环包含一个事件循环以及管理屏幕更新的代码。
 # 事件是用户玩游戏时执行的操作，如按键或移动鼠标。为程序响应事件，可编写一个事件循环，以侦听事件并根据发生的事件类型执行合适的任务。
 # for循环就是一个事件循环。
@@ -58,8 +63,8 @@ class AlienInvasion:
 
     def _update_screen(self):
         # 每次循环时都重绘屏幕
-        self.screen.fill(self.settings.bg_colour)
-        self.ship.blitme()
+        self.screen.fill(self.settings.bg_colour)   # 使用Settings类里的属性bg_colour
+        self.ship.blitme()    # 将图像绘制到self.rect指定的位置。
 
 if __name__ =='__main__':  # 仅当直接运行该文件时，它们才会执行
     ai = AlienInvasion()
